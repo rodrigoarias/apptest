@@ -19,6 +19,10 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      
+    # Install aws cli
+    - name: AWS cli install action
+      uses: chrislennon/action-aws-cli@1.1
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
