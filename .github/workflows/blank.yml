@@ -34,3 +34,6 @@ jobs:
         
     - name: Run a git line
       run: git status
+
+    - name: Run git diffs
+      run: git log master..
