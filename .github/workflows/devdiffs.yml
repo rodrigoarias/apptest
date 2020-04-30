@@ -24,17 +24,6 @@ jobs:
     - name: AWS cli install action
       uses: chrislennon/action-aws-cli@1.1
 
-    - name: Create dir
-      run: mkdir upload
-      
-    - name: Install s3 upload
-      uses: shallwefootball/s3-upload-action@master
-      with:
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: 'upload'
-
     # Runs a single command using the runners shell
     - name: Welcome
       run: echo Welcome to the auto-version-doc prototipe!
@@ -42,10 +31,23 @@ jobs:
     # git fetch
     - name: Git fetch
       run: git fetch --prune --unshallow
+    
+    # create dir 
+    - name: Create dir
+      run: mkdir upload
       
-    # Runs a set of commands using the runners shell
+    # Run git log and save
     - name: Git diffs to master and save
       run: git log origin/master.. --pretty=oneline > upload/gitlog.txt
+
+    # S3 Uploade 
+    - name: Install s3 upload
+      uses: shallwefootball/s3-upload-action@master
+      with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: 'upload'
       
     - name: List s3 test
       env: 
