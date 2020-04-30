@@ -35,6 +35,9 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Git diffs again master
       run: git log origin/master.. --pretty=oneline
+
+    - name: Decrypt large secret
+      run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
       
     - name: List s3 test
       env: 
