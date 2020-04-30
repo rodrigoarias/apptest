@@ -19,10 +19,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-      
-    # Install aws cli
-    - name: AWS cli install action
-      uses: chrislennon/action-aws-cli@1.1
 
     # Runs a single command using the runners shell
     - name: Welcome
@@ -41,16 +37,27 @@ jobs:
       run: git log origin/master.. --pretty=oneline > upload/gitlog.txt
 
     # S3 Uploade 
-    - name: Install s3 upload
-      uses: shallwefootball/s3-upload-action@master
-      with:
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: 'upload'
+#    - name: Install s3 upload
+#      uses: shallwefootball/s3-upload-action@master
+#      with:
+#          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+#          aws_bucket: ${{ secrets.AWS_BUCKET }}
+#          source_dir: 'upload'
+
+    # Install aws cli
+    - name: AWS cli install action
+      uses: chrislennon/action-aws-cli@1.1  
+  
+    
+    - name: s3
+      env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+      run: aws s3 sync ./upload s3://balde-temporal/test
       
-    - name: List s3 test
-      env: 
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: aws configure list
+#    - name: List s3 test
+#      env: 
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#      run: aws configure list
