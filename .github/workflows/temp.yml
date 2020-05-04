@@ -29,7 +29,8 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Create new branch
       run: git checkout -b $RELEASE_BRANCH
-      env: RELEASE_BRANCH: Relle
+      env: 
+        RELEASE_BRANCH: Relle
     
     # Runs a set of commands using the runners shell
     - name: Push
