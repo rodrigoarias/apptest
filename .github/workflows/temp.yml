@@ -1,6 +1,8 @@
 # This is a basic workflow to help you get started with Actions
 
 name: CI
+env:
+  RELEASE_BRANCH: Release$GITHUB_RUN_NUMBER
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -28,12 +30,12 @@ jobs:
       run: echo Hello, world!
       
     - name: echo
-      run: echo release$GITHUB_RUN_NUMBER
+      run: echo $RELEASE_BRANCH
 
     # Runs a set of commands using the runners shell
     - name: Create new branch
-      run: git checkout -b release$GITHUB_RUN_NUMBER
+      run: git checkout -b $RELEASE_BRANCH
       
     # Runs a set of commands using the runners shell
     - name: Push
-      run: git push origin release$GITHUB_RUN_NUMBER
+      run: git push origin $RELEASE_BRANCH
