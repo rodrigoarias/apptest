@@ -21,6 +21,9 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+    
+    - name: Define name
+      env: RELEASE_BRANCH: Relle
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
@@ -28,8 +31,9 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Create new branch
-      run: git checkout -b NEW-BRANCH-NAME
+      run: git checkout -b $RELEASE_BRANCH
+      env: RELEASE_BRANCH: Relle
     
     # Runs a set of commands using the runners shell
     - name: Push
-      run: git push origin NEW-BRANCH-NAME
+      run: git push origin $RELEASE_BRANCH
