@@ -32,8 +32,8 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Create new branch
-      run: git checkout -b $RELEASE_BRANCH
+      run: git checkout -b release$GITHUB_RUN_NUMBER
       
     # Runs a set of commands using the runners shell
     - name: Push
-      run: git push origin $RELEASE_BRANCH
+      run: git push origin release$GITHUB_RUN_NUMBER
